@@ -11,9 +11,12 @@ import SingleQuestionChat from './pages/SingleQuestionChat';
 import RelationshipAnalysis from './pages/RelationshipAnalysis';
 import Support from './pages/Support';
 import TicketDetail from './pages/TicketDetail';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 export default function App() {
   return (
+    <Provider store={store}>
     <Router>
       <div className="min-h-screen bg-white">
         <Routes>
@@ -32,5 +35,6 @@ export default function App() {
         <Toaster position="top-center" />
       </div>
     </Router>
+    </Provider>
   );
 }

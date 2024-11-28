@@ -13,7 +13,7 @@ export interface UserCreate {
 
 export interface UserInterface {
   id: string;
-  name: string;
+  fullName: string;
   telephone?: string;
   email: string;
   profileImage?: string;

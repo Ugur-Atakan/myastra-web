@@ -10,7 +10,7 @@ const initialState: UserState = {
   isLoggedIn: false,
   userData: {
     id: '',
-    name: '',
+    fullName: '',
     email: '',
     notifications: false,
     createdAt: '',

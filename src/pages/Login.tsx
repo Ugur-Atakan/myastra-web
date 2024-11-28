@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../lib/firebase';
 import toast from 'react-hot-toast';
 import { Mail, Lock } from 'lucide-react';
+import { getUserData, loginWithEmail } from '../http/requests';
+import { useAppDispatch } from '../store/hook';
+import { login } from '../store/slices/userSlice';
+import { getUserTokens, saveUserTokens } from '../utils/userTokens';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -11,12 +13,34 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+const dispatch = useAppDispatch();
+
+
+useEffect(() => {
+  const checkUser = async () => {
+    const tokens =await getUserTokens();
+    if (tokens) {
+      try {
+        const user = await getUserData();
+        dispatch(login(user));
+        navigate("/birth-chart");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  checkUser();
+}
+, []);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+     const response=  await loginWithEmail({ email, password });
+      saveUserTokens(response.tokens);
+      dispatch(login(response.user));
       toast.success('Başarıyla giriş yapıldı!');
       navigate('/birth-chart'); // Değişiklik burada: /dashboard yerine /birth-chart
     } catch (error) {
