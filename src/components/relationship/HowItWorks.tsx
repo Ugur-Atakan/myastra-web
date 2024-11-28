@@ -1,0 +1,57 @@
+import { FileText, Users, Mail, Sparkles } from 'lucide-react';
+
+const steps = [
+  {
+    icon: FileText,
+    title: 'Doğum bilgilerinizi paylaşın',
+    description: 'Sizin ve partnerinizin doğum bilgilerini girin',
+  },
+  {
+    icon: Users,
+    title: 'Uzman Astrologlarımız ilişki haritanızı hazırlasın',
+    description: 'Detaylı astrolojik hesaplamalar ve analizler yapılır',
+  },
+  {
+    icon: Mail,
+    title: 'Raporunuzu e-posta ile alın',
+    description: 'Size özel ilişki analizi raporunuz hazırlanır',
+  },
+  {
+    icon: Sparkles,
+    title: 'Rehberlik önerilerinden faydalanın',
+    description: 'İlişkinizi güçlendirmek için önerilerimizi uygulayın',
+  },
+];
+
+export default function HowItWorks() {
+  return (
+    <div>
+      <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+        Nasıl Çalışır?
+      </h2>
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <div key={index} className="relative">
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-8 right-0 w-full h-0.5 bg-FDEAE9 transform translate-x-1/2" />
+              )}
+              <div className="bg-white rounded-2xl p-6 shadow-sm relative z-10">
+                <div className="bg-FDEAE9 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Icon className="h-8 w-8 text-EF7874" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 text-center mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600 text-center">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
